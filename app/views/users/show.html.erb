@@ -1,0 +1,13 @@
+<h1>プロフィール</h1>
+
+<h3>メールアドレス</h3>
+<%= @user.email %>
+
+<h3>ニックネーム</h3>
+<%= @user.username %>
+
+<p>
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar %>
+  <% end %>
+</p>
