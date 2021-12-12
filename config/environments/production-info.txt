@@ -1,0 +1,24 @@
+https://gorails.com/deploy/ubuntu/16.04
+ - SSH instructions: 
+ - GitHub: 25 minutes
+
+
+linux:
+
+user:	deploy
+pwd:	Cf38+62>uwR@}/8V
+
+
+ssh:
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCHowhLg2C0YcSxJc2L+xQ5pE6XmnlPxuZu6DUY0KZrl6jS9uG6s7aIaCdd7XtjDwc1kS2qOrM34ZiisGqOD377nhuhhVQIg704NdxZ3cEiwMSHZf5R15JD5A/+nFU5bvrIuHoY39eeDK1AvMQbiUbfZDwNP9QomfvUiV2AFoCMt5d/DHkwW7T7NXqOIb2e9r53QHqpbVQtsOJl1z1O8s4LTN8JEeG/otObggWCsDoRFXKZYmr3cOnCazB5WkvuNiywNzRgYNBb6LWqrlSHDJPLWuWMVswv9BbzlBCCCioVE9Ywi6kmIu314AVBkUvelinzW/rYTxncCqiMkOAwY2md dev.lawrencemcdaniel.com
+
+pem: 
+dev.lawrencemcdaniel.com.pem
+
+postgres:
+user:		deploy
+password:	Cf38+62>uwR@}/8V
+database:	ruby-blog
+
+
+insert into authors (name, email, created_at, updated_at)  values('Lawrence McDaniel', 'lpm0073@gmail.com', clock_timestamp(), clock_timestamp());
