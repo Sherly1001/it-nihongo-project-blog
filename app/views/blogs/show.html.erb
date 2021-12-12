@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @blog.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @blog.content %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @blog.description %>
+</p>
+
+<%= form_with(model: @blogs, local: true) do |form| %>
+  <% if @blogs.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+        <% c.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.hidden_field :user_id, :value =>current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :blog_id %>
+    <%= form.hidden_field :blog_id, :value =>@blog.id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+    
+    
+<h2>Comment</h2>
+<ul>
+  <% @blog.comment.each do |comment|%>
+   <li><%= comment.comment %>
+     (<i><%= comment.user_id %></i>)</li>
+<% end %>
+</ul>
+
+
+<%= link_to 'Edit', edit_blog_path(@blog) %> |
+<%= link_to 'Back', blogs_path %>
