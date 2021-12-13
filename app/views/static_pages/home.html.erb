@@ -1,1 +1,11 @@
-<h1>HOME PAGE</h1>
+<h1>投稿</h1>
+
+<div class="posts">
+<% @blogs.each do |blog| %>
+  <div class="post">
+    <h3><%= link_to blog.title, blog %></h3>
+    <hr>
+    <p><%= blog.description %></p>
+  </div>
+<% end %>
+</div>

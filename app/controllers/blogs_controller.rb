@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1 or /blogs/1.json
   def show
-      @blogs = Comment.new
+      @cmts = Comment.new
   end
 
   # GET /blogs/new
