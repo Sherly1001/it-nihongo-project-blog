@@ -4,26 +4,24 @@
     <title>ItNihongoProjectBlog</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-        <% if user_signed_in? %>
-      <p>こんにちは、<%= link_to current_user.email, users_show_path %></p>
+    <div class="links">
+    <%= link_to "ホーム", "/" %>
+    <div style="margin-left: auto"></div>
+    <% if user_signed_in? %>
+      <%= link_to current_user.username, users_show_path %>
+      <%= link_to "新しい投稿", new_blog_path %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      
-      
-          <%= link_to "view-blogs", blogs_path, method: "GET" %>
-
-      
     <% else %>
       <%= link_to "サインイン", new_user_session_path %>
       <%= link_to "ユーザ登録", new_user_registration_path %>
-      
     <% end %>
-    <hr>  
+    </div>
+    <hr />
     <%= yield %>
   </body>
 </html>

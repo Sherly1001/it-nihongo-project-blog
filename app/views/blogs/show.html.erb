@@ -1,22 +1,55 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @blog.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @blog.title %>
-</p>
+<div class="posts">
+<div class="post" style="margin-top: 3em;">
+  <pre><%= @blog.description.html_safe %></pre>
+</div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @blog.content %>
-</p>
+<div class="post" style="margin-top: 2em;">
+  <pre><%= @blog.content.html_safe %></pre>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @blog.description %>
-</p>
+<div class="cmt-like">
+  <div style="margin-left: auto"></div>
+<% if @blog.user == current_user then %>
+  <%= link_to "edit", edit_blog_path %>
+<% else %>
+  <i>By <%= @blog.user.username %></i>
+<% end %>
+</div>
 
-<%= form_with(model: @blogs, local: true) do |form| %>
-  <% if @blogs.errors.any? %>
+<div class="cmt-like">
+  <h3>Comments: <%= @blog.comment.count %></h3>
+  <div style="margin-left: auto"></div>
+
+<% if current_user then %>
+  <%= form_with model: [ @blog, @blog.likes.build ] do |form| %>
+    <% if Like.find_by(user_id: current_user.id, blog_id: @blog.id)%>
+      <%= form.submit "unlike"%>
+    <% else %>
+      <%= form.submit "like"%>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= button_to "like", new_user_session_path %>
+<% end %>
+
+  <h3>Likes: <%= @blog.likes.count %></h3>
+</div>
+<% if @blog.comment.count > 0 then %>
+<div class="post">
+<% @blog.comment.each do |comment|%>
+  <div class="cmt">
+    <b><%= comment.user.username %></b>:
+    <%= comment.comment %>
+  </div>
+<% end %>
+</div>
+<% end %>
+
+<div class="new-cmt post">
+<%= form_with(model: @cmts, local: true) do |form| %>
+  <% if @cmts.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
@@ -27,49 +60,18 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :user_id %>
+  
+  <% if current_user then %>
     <%= form.hidden_field :user_id, :value =>current_user.id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :blog_id %>
-    <%= form.hidden_field :blog_id, :value =>@blog.id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comment %>
-    <%= form.text_field :comment %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <% end %>
+  <%= form.hidden_field :blog_id, :value =>@blog.id %>
+  <%= form.text_field :comment %>
+  <div style="margin-left: auto"></div>
+  <% if current_user then %>
+    <%= form.submit "comment" %>
+  <% else %>
+    <%= button_to "comment", new_user_session_path %>
+  <% end %>
 <% end %>
-
-<div>
-    <%= @blog.likes.count %>
-    likes
 </div>
-
-<%= form_with model: [ @blog, @blog.likes.build ] do |form| %>
-    <% if Like.find_by(user_id: current_user.id, blog_id: @blog.id)%>
-      <%= form.submit "UNLIKE"%>
-    <% else %>
-      <%= form.submit "LIKE"%>
-    <% end %>
-<% end %>
-    
-    
-<h2>Comment</h2>
-<ul>
-  <% @blog.comment.each do |comment|%>
-   <li><%= comment.comment %>
-     (<i><%= comment.user_id %></i>)</li>
-<% end %>
-</ul>
-
-
-<%= link_to 'Edit', edit_blog_path(@blog) %> |
-<%= link_to 'Back', blogs_path %>
+</div>
