@@ -48,6 +48,18 @@
   </div>
 <% end %>
 
+<div>
+    <%= @blog.likes.count %>
+    likes
+</div>
+
+<%= form_with model: [ @blog, @blog.likes.build ] do |form| %>
+    <% if Like.find_by(user_id: current_user.id, blog_id: @blog.id)%>
+      <%= form.submit "UNLIKE"%>
+    <% else %>
+      <%= form.submit "LIKE"%>
+    <% end %>
+<% end %>
     
     
 <h2>Comment</h2>
