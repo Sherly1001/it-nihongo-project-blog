@@ -1,13 +1,28 @@
 <h1>プロフィール</h1>
 
-<h3>メールアドレス</h3>
-<%= @user.email %>
+<div class="posts">
+<div class="post info">
+  <div class="name-mail">
+    <h3>メールアドレス</h3>
+    <%= @user.email %>
+    <h3>ニックネーム</h3>
+    <%= @user.username %>
+  </div>
+  <div class="avt">
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar %>
+    <% end %>
+  </div>
+</div>
 
-<h3>ニックネーム</h3>
-<%= @user.username %>
-
-<p>
-  <% if @user.avatar.attached? %>
-    <%= image_tag @user.avatar %>
-  <% end %>
-</p>
+<h1>投稿したもの</h1>
+<div class="posts">
+<% @blogs.each do |blog| %>
+  <div class="post">
+    <h3><%= link_to blog.title, blog %></h3>
+    <hr>
+    <p><%= blog.description %></p>
+  </div>
+<% end %>
+</div>
+</div>

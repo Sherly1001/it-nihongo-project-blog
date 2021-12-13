@@ -63,3 +63,19 @@ h1 {
   height: 2em;
   margin-right: 1em;
 }
+
+.post.info {
+  display: flex;
+}
+
+.post.info .name-mail {
+  width: 80%;
+}
+
+.post.info .avt {
+  height: 80px;
+}
+
+.post.info .avt img {
+  height: 100%;
+}
