@@ -48,6 +48,7 @@
 <% end %>
 
 <div class="new-cmt post">
+<% if current_user then %>
 <%= form_with(model: @cmts, local: true) do |form| %>
   <% if @cmts.errors.any? %>
     <div id="error_explanation">
@@ -61,17 +62,14 @@
     </div>
   <% end %>
   
-  <% if current_user then %>
     <%= form.hidden_field :user_id, :value =>current_user.id %>
-  <% end %>
   <%= form.hidden_field :blog_id, :value =>@blog.id %>
   <%= form.text_field :comment %>
   <div style="margin-left: auto"></div>
-  <% if current_user then %>
-    <%= form.submit "comment" %>
-  <% else %>
-    <%= button_to "comment", new_user_session_path %>
-  <% end %>
+  <%= form.submit "comment" %>
+<% end %>
+<% else %>
+  <%= button_to "login to comment", new_user_session_path %>
 <% end %>
 </div>
 </div>
